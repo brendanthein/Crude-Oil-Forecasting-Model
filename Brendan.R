@@ -1,28 +1,6 @@
-#=============================================================================#
-#                                 MIDTERM                                     #
-#=============================================================================#
-
-
-
-
-
-#== EC 361-001: Applied Macroeconomic Forecasting
-
-
-#== Student Name: [Brendan Thein]                            
-
-
-
-
 
 #=============================================================================#
-#                             MIDTERM [1]                                     #
-#=============================================================================#
-
-
-
-#=============================================================================#
-#                       LOAD YOUR PACKAGES HERE                               #
+#                                Packages                                     #
 library(tidyverse)
 library(janitor)
 library(tsibble)
@@ -33,7 +11,7 @@ library(feasts)
 library(fable)
 #=============================================================================#
 
-# PART 1: VISUALIZATION
+#VISUALIZATION
 
 crudeoil_dataset <- read_csv("crudeoil_data.csv")
 
@@ -57,7 +35,7 @@ crudeoil_ts %>% autoplot() +
 #data appears to be cyclical with no seasonality. further analysis will be
 #constructed through a STL decomposition
 
-# PART 2: DECOMPOSITION
+#DECOMPOSITION
 
 crudeoil_ts %>% 
   model(stl = STL(price)) %>% 
@@ -117,7 +95,7 @@ log_crudeoil_ts_sa %>% autoplot() +
        caption = "Source: Federal Reserve Economic Data (FRED)") +
   scale_y_continuous(labels = percent_format(scale=100))
 
-# PART 3: IN-SAMPLE FORECASTING
+#IN-SAMPLE FORECASTING
 
 #For the training set, we will be using log transformed seasonally adjusted data
 #from 1987 W01 to 2022 W01 in order to fit a forecast model for future crude oil
@@ -165,7 +143,7 @@ naive_plot <- naive_dcmp_model_fit %>% forecast(h=114) %>% autoplot(test_set) +
 
 (rw_plot)/(naive_plot)
 
-# PART 4: ACCURACY
+#ACCURACY
 
 #After fitting the benchmark methods to the training data, accuracy measures
 #will be used to determine the model with the best in-sample performance
@@ -207,7 +185,3 @@ naive_dcmp_model_fit %>%
 naive_dcmp_model_fit %>% 
   augment() %>% 
   features(.innov, ljung_box, lag = 10)
-
-
-aug <- naive_dcmp_model_fit %>% 
-  augment()
