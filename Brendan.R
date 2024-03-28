@@ -161,7 +161,7 @@ naive_dcmp_model_fit %>%
 #log transformed seasonally adjusted naive method minimizes the errors in
 #comparison to the random walk with drift method
 
-# PART 5: OUT-OF-SAMPLE FORECASTING
+#OUT-OF-SAMPLE FORECASTING
 
 #Based on the results of the accuracy measures, the log-transformed seasonally
 #adjusted method was decided upon as the best forecasting model for Brent-Europe
