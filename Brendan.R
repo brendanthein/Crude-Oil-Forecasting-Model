@@ -178,6 +178,13 @@ naive_dcmp_model_fit %>%
   gg_tsresiduals() +
   labs(title = "Plots for Naive Model residual analysis")
 
+#From the residual diagnostics graphs we find that the innovated residuals for
+#the log-transformed seasonally adjusted naive method meet the conditions of a
+#"good" forecast. The mean of of the residuals is homoscedastic and around zero.
+#Additionally the residuals are normally distributed about zero. To test whether
+#autocorrelation exists among residuals, portmanteau tests will be conducted using
+#the box-pierce test and the ljung-box test.
+
 naive_dcmp_model_fit %>% 
   augment() %>% 
   features(.innov, box_pierce, lag = 10)
@@ -185,3 +192,7 @@ naive_dcmp_model_fit %>%
 naive_dcmp_model_fit %>% 
   augment() %>% 
   features(.innov, ljung_box, lag = 10)
+
+#The p-values for both portmanteau test are returned to be above the 0.05 
+#significance level, hence the null hypothesis that the autocorrelations are
+#white noise is not rejected.
