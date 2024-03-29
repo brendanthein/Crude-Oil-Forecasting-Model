@@ -193,6 +193,11 @@ naive_dcmp_model_fit %>%
   augment() %>% 
   features(.innov, ljung_box, lag = 10)
 
-#The p-values for both portmanteau test are returned to be above the 0.05 
-#significance level, hence the null hypothesis that the autocorrelations are
-#white noise is not rejected.
+#The p-values for both portmanteau tests are returned to be below the 0.05 significance level, 
+#hence the null hypothesis that the autocorrelations are white noise is rejected. This 
+#indicates that there is autocorrelation among residuals. From the residual analysis 
+#in Diagram 7, the model is unbiased given that the mean of the residuals is about zero. 
+#However it exhibits autocorrelation, indicating predictions have high accuracy, 
+#the errors in the predictions are not independent across time. This allows the conclusion 
+#that the presence of autocorrelation among residuals is a result of exogenous factors such as 
+#COVID-19 and the Russia - Ukraine war or other omitted factors that were not captured by the model.
