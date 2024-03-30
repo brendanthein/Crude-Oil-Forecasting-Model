@@ -167,16 +167,18 @@ naive_dcmp_model_fit %>%
 #adjusted method was decided upon as the best forecasting model for Brent-Europe
 #crude oil prices
 
-naive_dcmp_model_fit %>% forecast(h=156) %>% autoplot(crudeoil_ts) +
+model_refit <- crudeoil_ts %>% 
+  model(stlf_log_naive <- decomposition_model(STL(log(price),robust=TRUE),
+                                              SNAIVE(season_year),
+                                              NAIVE(season_adjust)))
+
+model_refit %>% forecast(h=156) %>% autoplot(crudeoil_ts) +
   labs(x = "Period (Weekly)",
        y = "Dollars per Barrel",
        title = "Crude Oil Prices: Brent-Europe (1 Year Forecast)",
        subtitle = "Log-Transformed Seasonally Adjusted Naive Method",
        caption = "Source: Federal Reserve Economic Data (FRED)")
 
-naive_dcmp_model_fit %>% 
-  gg_tsresiduals() +
-  labs(title = "Plots for Naive Model residual analysis")
 
 #From the residual diagnostics graphs we find that the innovated residuals for
 #the log-transformed seasonally adjusted naive method meet the conditions of a
@@ -185,11 +187,11 @@ naive_dcmp_model_fit %>%
 #autocorrelation exists among residuals, portmanteau tests will be conducted using
 #the box-pierce test and the ljung-box test.
 
-naive_dcmp_model_fit %>% 
+mode_refit %>% 
   augment() %>% 
   features(.innov, box_pierce, lag = 10)
 
-naive_dcmp_model_fit %>% 
+model_refit %>% 
   augment() %>% 
   features(.innov, ljung_box, lag = 10)
 
