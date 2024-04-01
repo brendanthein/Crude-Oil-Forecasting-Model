@@ -1,6 +1,6 @@
 **Objective**:
 The objective of this project was to develop a forecasting model that gives a prediction of global crude oil prices in dollars per barrel using Brent-Europe crude oil data from the Federal Reserve Economic Data (FRED).
-This specific forecast model gives a prediction 154 weeks into future relative to the training set which was from 1987 to 2022.
+This specific forecast model gives a prediction 154 weeks into the future.
 
 **Method**:
 1. Ensure that data set is clean and in appropriate format for data wrangling.
